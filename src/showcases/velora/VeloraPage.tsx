@@ -234,9 +234,15 @@ function PerformanceSection({ reduced }: { reduced: boolean }) {
 }
 
 function Configurator() {
-  const [exteriorId, setExteriorId] = useState(exteriorOptions[1].id);
-  const [interiorId, setInteriorId] = useState(interiorOptions[0].id);
-  const [wheelId, setWheelId] = useState(wheelOptions[0].id);
+  const [exteriorId, setExteriorId] = useState<(typeof exteriorOptions)[number]["id"]>(
+    exteriorOptions[1].id,
+  );
+  const [interiorId, setInteriorId] = useState<(typeof interiorOptions)[number]["id"]>(
+    interiorOptions[0].id,
+  );
+  const [wheelId, setWheelId] = useState<(typeof wheelOptions)[number]["id"]>(
+    wheelOptions[0].id,
+  );
 
   const exterior = exteriorOptions.find((o) => o.id === exteriorId) ?? exteriorOptions[0];
   const interior = interiorOptions.find((o) => o.id === interiorId) ?? interiorOptions[0];
