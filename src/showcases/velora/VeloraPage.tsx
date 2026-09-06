@@ -60,13 +60,13 @@ function AnimatedCounter({
   const motionValue = useMotionValue(0);
   const spring = useSpring(motionValue, { stiffness: 70, damping: 22 });
   const display = useTransform(spring, (latest) =>
-    latest.toLocaleString(undefined, {
+    latest.toLocaleString("en-US", {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     }),
   );
   const [text, setText] = useState(
-    value.toLocaleString(undefined, {
+    value.toLocaleString("en-US", {
       minimumFractionDigits: decimals,
       maximumFractionDigits: decimals,
     }),
@@ -176,7 +176,7 @@ function CinemaSection({ reduced }: { reduced: boolean }) {
           {cinemaMetrics.map((m) => (
             <div key={m.id} className="velora-cinema__metric">
               <div className="velora-cinema__metric-value">
-                {m.value.toLocaleString(undefined, {
+                {m.value.toLocaleString("en-US", {
                   minimumFractionDigits: m.decimals,
                   maximumFractionDigits: m.decimals,
                 })}
@@ -352,7 +352,7 @@ function Configurator() {
                     <span className="text-xs tracking-[0.12em] uppercase text-[var(--velora-silver-dim)]">
                       {opt.priceDelta === 0
                         ? "Included"
-                        : `+€${opt.priceDelta.toLocaleString()}`}
+                        : `+€${opt.priceDelta.toLocaleString("en-US")}`}
                     </span>
                   </button>
                 ))}
@@ -364,7 +364,7 @@ function Configurator() {
                 <p className="text-[0.65rem] tracking-[0.18em] uppercase text-[var(--velora-silver-dim)]">
                   Build estimate
                 </p>
-                <p className="velora-config__price">€{price.toLocaleString()}</p>
+                <p className="velora-config__price">€{price.toLocaleString("en-US")}</p>
                 <p className="velora-config__build">
                   {exterior.name} · {interior.name} · {wheel.name}
                 </p>

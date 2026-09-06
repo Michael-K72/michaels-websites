@@ -300,7 +300,7 @@ export default function ElanPage() {
 
               <Reveal className="elan-room__copy" delay={0.12}>
                 <p className="elan-room__index">
-                  {room.index} / 0{rooms.length}
+                  {room.index} / {String(rooms.length).padStart(2, "0")}
                 </p>
                 <h3 className="elan-room__name">{room.name}</h3>
                 <p className="elan-room__subtitle">{room.subtitle}</p>

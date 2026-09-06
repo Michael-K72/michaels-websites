@@ -43,6 +43,15 @@ export function ConceptNav() {
     };
   }, [open]);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   return (
     <>
       <header
@@ -97,8 +106,7 @@ export function ConceptNav() {
                   >
                     {item.label}
                     {active ? (
-                      <motion.span
-                        layoutId="nav-underline"
+                      <span
                         className="absolute inset-x-2 -bottom-0.5 h-px"
                         style={{ background: "currentColor" }}
                       />
@@ -131,7 +139,7 @@ export function ConceptNav() {
         {open ? (
           <motion.div
             id="mobile-menu"
-            className="fixed inset-0 z-40 bg-[#090909]/95 px-6 pt-28 backdrop-blur-2xl"
+            className="fixed inset-0 z-[60] bg-[#090909]/95 px-6 pt-28 backdrop-blur-2xl"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}

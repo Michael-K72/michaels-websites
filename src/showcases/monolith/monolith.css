@@ -413,8 +413,9 @@
 .monolith-overlay {
   position: fixed;
   inset: 0;
-  z-index: 60;
-  background: rgba(17, 17, 17, 0.35);
+  z-index: 80;
+  background: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(6px);
   display: grid;
   place-items: stretch;
   padding: 0;
