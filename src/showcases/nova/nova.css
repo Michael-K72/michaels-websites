@@ -6,9 +6,14 @@
   --nova-muted: rgba(232, 238, 248, 0.62);
   --nova-line: rgba(232, 238, 248, 0.12);
   --nova-accent: #5ed0e8;
-  background: var(--nova-bg);
+  --nova-cyan: #5ed0e8;
+  --nova-dim: rgba(232, 238, 248, 0.38);
+  background:
+    radial-gradient(ellipse 90% 50% at 85% -5%, rgba(94, 208, 232, 0.06), transparent 50%),
+    var(--nova-bg);
   color: var(--nova-ink);
-  font-family: var(--font-body), sans-serif;
+  font-family: var(--font-velora), var(--font-sans), ui-sans-serif, system-ui, sans-serif;
+  overflow-x: clip;
 }
 
 .nova h1,
@@ -154,8 +159,18 @@
 }
 
 .nova-viz-svg {
+  display: block;
   width: 100%;
-  height: 340px;
+  height: auto;
+  min-height: 280px;
+}
+
+.nova-viz-caption p {
+  margin: 0;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: var(--nova-muted);
+  max-width: 36rem;
 }
 
 .nova-viz-grid line {
@@ -218,7 +233,8 @@
   border-bottom: 1px solid var(--nova-line);
 }
 
-.nova-feature-list button {
+.nova-feature-list button,
+.nova-feature-item {
   width: 100%;
   display: grid;
   grid-template-columns: 3rem 1fr auto;
@@ -228,7 +244,23 @@
   border: 0;
   background: transparent;
   color: inherit;
+  font: inherit;
   padding: 1.15rem 0;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+.nova-feature-item:hover,
+.nova-feature-item.is-active,
+.nova-feature-list button:hover {
+  background: linear-gradient(90deg, rgba(94, 208, 232, 0.06), transparent 55%);
+}
+
+@media (min-width: 800px) {
+  .nova-feature-item {
+    grid-template-columns: 3.5rem 1.2fr 1fr auto;
+    gap: 1.5rem;
+  }
 }
 
 .nova-feature-index {
@@ -257,6 +289,21 @@
   color: var(--nova-accent);
   font-size: 1.35rem;
   min-width: 5rem;
+}
+
+.nova-feature-metric strong {
+  display: block;
+  font-size: 1.35rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--nova-ink);
+}
+
+.nova-feature-metric span {
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nova-dim);
 }
 
 .nova-dash {
@@ -388,57 +435,97 @@
 }
 
 .nova-pricing-table {
+  margin-top: 2.5rem;
+  border-top: 1px solid var(--nova-line);
+}
+
+.nova-pricing-row {
   display: grid;
-  gap: 0.85rem;
-  margin-top: 2rem;
+  gap: 1.25rem;
+  padding: 1.75rem 0;
+  border-bottom: 1px solid var(--nova-line);
 }
 
 @media (min-width: 900px) {
-  .nova-pricing-table {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+  .nova-pricing-row {
+    grid-template-columns: 11rem 1fr 9rem 8rem;
+    align-items: start;
+    gap: 2rem;
   }
 }
 
-.nova-pricing-table article {
-  border: 1px solid var(--nova-line);
-  padding: 1.35rem;
-  background: rgba(10, 22, 40, 0.65);
+.nova-pricing-row.is-featured {
+  background: linear-gradient(90deg, rgba(94, 208, 232, 0.05), transparent 40%);
 }
 
-.nova-pricing-table article.is-hot,
-.nova-pricing-table article[data-hot="true"] {
-  border-color: rgba(94, 208, 232, 0.55);
-  background: rgba(94, 208, 232, 0.05);
+.nova-pricing-name {
+  margin: 0;
+  font-size: 1.35rem;
 }
 
 .nova-pricing-badge {
-  display: inline-flex;
-  margin-left: 0.5rem;
+  display: inline-block;
+  margin-top: 0.45rem;
   font-size: 0.6rem;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--nova-accent);
 }
 
 .nova-pricing-blurb,
 .nova-pricing-seats {
+  margin: 0;
   color: var(--nova-muted);
   font-size: 0.92rem;
   line-height: 1.6;
 }
 
 .nova-pricing-features {
-  margin: 1rem 0;
-  padding-left: 1rem;
+  list-style: none;
+  margin: 0.85rem 0 0;
+  padding: 0;
+  display: grid;
+  gap: 0.35rem;
   color: var(--nova-muted);
-  line-height: 1.7;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
+}
+
+.nova-pricing-features li {
+  padding-left: 0.9rem;
+  position: relative;
+}
+
+.nova-pricing-features li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 1px;
+  background: var(--nova-accent);
 }
 
 .nova-pricing-price {
-  font-size: 2rem;
-  margin: 0.75rem 0;
+  font-size: 1.75rem;
+  margin: 0;
   font-family: var(--font-sans), sans-serif;
+  letter-spacing: -0.03em;
+}
+
+.nova-pricing-price span {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--nova-dim);
+  font-weight: 400;
+}
+
+.nova-pricing-seats {
+  margin-top: 0.35rem;
+  font-size: 0.75rem;
+  color: var(--nova-dim);
 }
 
 .nova-enterprise-grid {
