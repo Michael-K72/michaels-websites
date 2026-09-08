@@ -117,20 +117,29 @@ export function ConceptNav() {
             </nav>
           </div>
 
-          <div className="flex items-center gap-3 md:hidden">
-            <span className="text-[0.7rem] tracking-[0.16em] uppercase opacity-70">
-              {current}
-            </span>
-            <button
-              type="button"
-              aria-expanded={open}
-              aria-controls="mobile-menu"
-              onClick={() => setOpen((v) => !v)}
-              className="grid h-10 w-10 place-items-center rounded-full border text-sm"
+          <div className="flex items-center gap-2 sm:gap-3">
+            <Link
+              href="/contact"
+              className="hidden items-center rounded-full border px-3.5 py-2 text-[0.65rem] tracking-[0.16em] uppercase transition-opacity hover:opacity-80 lg:inline-flex"
               style={{ borderColor: "var(--nav-border)" }}
             >
-              {open ? "✕" : "☰"}
-            </button>
+              Inquire
+            </Link>
+            <div className="flex items-center gap-3 md:hidden">
+              <span className="text-[0.7rem] tracking-[0.16em] uppercase opacity-70">
+                {current}
+              </span>
+              <button
+                type="button"
+                aria-expanded={open}
+                aria-controls="mobile-menu"
+                onClick={() => setOpen((v) => !v)}
+                className="grid h-10 w-10 place-items-center rounded-full border text-sm"
+                style={{ borderColor: "var(--nav-border)" }}
+              >
+                {open ? "✕" : "☰"}
+              </button>
+            </div>
           </div>
         </div>
       </header>

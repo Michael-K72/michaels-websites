@@ -46,6 +46,15 @@ const initial: FormState = {
   message: "",
 };
 
+const fieldClass =
+  "w-full border border-white/15 bg-transparent px-4 py-3.5 text-[#F2EEE7] outline-none transition-[border-color,box-shadow] duration-200 placeholder:text-white/25 focus:border-[#B9A584]/70 focus:shadow-[0_0_0_1px_rgba(185,165,132,0.35)]";
+
+const selectClass =
+  "w-full border border-white/15 bg-[#0B0D10] px-4 py-3.5 text-[#F2EEE7] outline-none transition-[border-color,box-shadow] duration-200 focus:border-[#B9A584]/70 focus:shadow-[0_0_0_1px_rgba(185,165,132,0.35)]";
+
+const labelClass =
+  "mb-2.5 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45";
+
 export default function ContactPage() {
   const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Partial<FormState>>({});
@@ -79,32 +88,53 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="page-pad min-h-screen bg-[#0b0b0b] text-[#f4f1ec]">
-      <div className="mk-container py-10 md:py-16">
-        <p className="eyebrow mb-6">Contact</p>
-        <h1 className="font-display max-w-4xl text-[clamp(2.8rem,9vw,6.5rem)] leading-[0.9] tracking-[-0.03em]">
-          Let&apos;s build
-          <br />
-          something
-          <br />
-          worth remembering.
-        </h1>
-        <p className="mt-6 max-w-xl text-sm leading-relaxed text-white/55 md:text-base">
-          Tell me about your brand, the direction that resonates, and the experience you
-          want to create. I reply personally.
-        </p>
+    <div className="page-pad min-h-screen bg-[#0B0D10] text-[#F2EEE7]">
+      <div className="mk-container py-12 md:py-20">
+        <header className="max-w-3xl">
+          <p className="eyebrow mb-5 text-[#B9A584]/90">Contact</p>
+          <h1 className="font-display text-[clamp(2.6rem,8vw,5.5rem)] leading-[0.92] tracking-[-0.03em]">
+            Let&apos;s build
+            <br />
+            something worth
+            <br />
+            remembering.
+          </h1>
+          <p className="mt-7 max-w-lg text-[0.95rem] leading-[1.7] text-white/55 md:text-base">
+            Tell me about your brand, the direction that resonates, and the experience you
+            want to create. I reply personally.
+          </p>
+        </header>
 
         {sent ? (
-          <div className="mt-16 max-w-2xl border border-white/15 bg-white/[0.03] p-8 md:p-12">
-            <p className="eyebrow mb-4 text-emerald-300/80">Message received</p>
-            <h2 className="font-display text-4xl md:text-5xl">Thank you, {form.name}.</h2>
-            <p className="mt-4 text-sm leading-relaxed text-white/60">
-              I&apos;ll review your note and respond at {form.email}. Meanwhile, explore the
-              five directions or write again at {SITE.email}.
+          <div
+            className="mt-14 max-w-2xl border border-[#B9A584]/35 bg-[#B9A584]/[0.06] p-8 md:mt-20 md:p-12"
+            role="status"
+            aria-live="polite"
+          >
+            <div className="mb-6 flex h-10 w-10 items-center justify-center border border-[#B9A584]/50 text-[#B9A584]">
+              <span aria-hidden className="text-lg leading-none">
+                ✓
+              </span>
+            </div>
+            <p className="eyebrow mb-4 text-[#B9A584]">Inquiry noted</p>
+            <h2 className="font-display text-[clamp(2rem,5vw,3.25rem)] leading-[1.05]">
+              Thank you, {form.name}.
+            </h2>
+            <p className="mt-5 max-w-md text-sm leading-relaxed text-white/60 md:text-[0.95rem]">
+              Your details are ready on this page—this demo does not send email yet. I&apos;ll
+              follow up at <span className="text-[#F2EEE7]">{form.email}</span>, or reach me
+              directly at{" "}
+              <a
+                href={`mailto:${SITE.email}`}
+                className="text-[#B9A584] underline-offset-4 transition hover:underline"
+              >
+                {SITE.email}
+              </a>
+              .
             </p>
             <button
               type="button"
-              className="mt-8 border border-white/25 px-5 py-3 text-xs tracking-[0.18em] uppercase"
+              className="mt-10 border border-white/25 px-6 py-3.5 text-xs tracking-[0.18em] uppercase transition hover:border-[#B9A584]/60 hover:text-[#B9A584]"
               onClick={() => {
                 setSent(false);
                 setForm(initial);
@@ -114,7 +144,11 @@ export default function ContactPage() {
             </button>
           </div>
         ) : (
-          <form onSubmit={onSubmit} className="mt-14 grid gap-6 md:grid-cols-2" noValidate>
+          <form
+            onSubmit={onSubmit}
+            className="mt-12 grid w-full max-w-3xl gap-5 sm:gap-6 md:mt-16 md:grid-cols-2"
+            noValidate
+          >
             {(
               [
                 ["name", "Name", "text"],
@@ -123,30 +157,29 @@ export default function ContactPage() {
                 ["websiteType", "Website type", "text"],
               ] as const
             ).map(([key, label, type]) => (
-              <label key={key} className="block text-sm">
-                <span className="mb-2 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45">
-                  {label}
-                </span>
+              <label key={key} className="block w-full text-sm">
+                <span className={labelClass}>{label}</span>
                 <input
                   type={type}
                   value={form[key]}
                   onChange={(e) => update(key, e.target.value)}
-                  className="w-full border border-white/15 bg-transparent px-4 py-3 outline-none transition focus:border-white/45"
+                  className={fieldClass}
+                  autoComplete={
+                    key === "name" ? "name" : key === "email" ? "email" : key === "company" ? "organization" : undefined
+                  }
                 />
                 {errors[key] ? (
-                  <span className="mt-2 block text-xs text-red-300">{errors[key]}</span>
+                  <span className="mt-2 block text-xs text-red-300/90">{errors[key]}</span>
                 ) : null}
               </label>
             ))}
 
-            <label className="block text-sm">
-              <span className="mb-2 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45">
-                Industry
-              </span>
+            <label className="block w-full text-sm">
+              <span className={labelClass}>Industry</span>
               <select
                 value={form.industry}
                 onChange={(e) => update("industry", e.target.value)}
-                className="w-full border border-white/15 bg-[#0b0b0b] px-4 py-3 outline-none"
+                className={selectClass}
               >
                 <option value="">Select</option>
                 {industries.map((i) => (
@@ -157,14 +190,12 @@ export default function ContactPage() {
               </select>
             </label>
 
-            <label className="block text-sm">
-              <span className="mb-2 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45">
-                Preferred style
-              </span>
+            <label className="block w-full text-sm">
+              <span className={labelClass}>Preferred style</span>
               <select
                 value={form.preferredStyle}
                 onChange={(e) => update("preferredStyle", e.target.value)}
-                className="w-full border border-white/15 bg-[#0b0b0b] px-4 py-3 outline-none"
+                className={selectClass}
               >
                 <option value="">Select</option>
                 {CONCEPTS.map((c) => (
@@ -176,14 +207,12 @@ export default function ContactPage() {
               </select>
             </label>
 
-            <label className="block text-sm">
-              <span className="mb-2 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45">
-                Budget range
-              </span>
+            <label className="block w-full text-sm">
+              <span className={labelClass}>Budget range</span>
               <select
                 value={form.budget}
                 onChange={(e) => update("budget", e.target.value)}
-                className="w-full border border-white/15 bg-[#0b0b0b] px-4 py-3 outline-none"
+                className={selectClass}
               >
                 <option value="">Select</option>
                 {budgets.map((b) => (
@@ -194,14 +223,12 @@ export default function ContactPage() {
               </select>
             </label>
 
-            <label className="block text-sm">
-              <span className="mb-2 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45">
-                Timeline
-              </span>
+            <label className="block w-full text-sm">
+              <span className={labelClass}>Timeline</span>
               <select
                 value={form.timeline}
                 onChange={(e) => update("timeline", e.target.value)}
-                className="w-full border border-white/15 bg-[#0b0b0b] px-4 py-3 outline-none"
+                className={selectClass}
               >
                 <option value="">Select</option>
                 {timelines.map((t) => (
@@ -212,29 +239,30 @@ export default function ContactPage() {
               </select>
             </label>
 
-            <label className="block text-sm md:col-span-2">
-              <span className="mb-2 block text-[0.65rem] tracking-[0.16em] uppercase text-white/45">
-                Message
-              </span>
+            <label className="block w-full text-sm md:col-span-2">
+              <span className={labelClass}>Message</span>
               <textarea
                 rows={6}
                 value={form.message}
                 onChange={(e) => update("message", e.target.value)}
-                className="w-full resize-y border border-white/15 bg-transparent px-4 py-3 outline-none transition focus:border-white/45"
+                className={`${fieldClass} resize-y`}
               />
               {errors.message ? (
-                <span className="mt-2 block text-xs text-red-300">{errors.message}</span>
+                <span className="mt-2 block text-xs text-red-300/90">{errors.message}</span>
               ) : null}
             </label>
 
-            <div className="md:col-span-2">
+            <div className="pt-2 md:col-span-2">
               <button
                 type="submit"
-                className="inline-flex items-center gap-3 border border-white/30 px-8 py-4 text-xs tracking-[0.2em] uppercase transition hover:-translate-y-0.5"
+                className="inline-flex w-full items-center justify-center gap-3 border border-white/30 px-8 py-4 text-xs tracking-[0.2em] uppercase transition hover:-translate-y-0.5 hover:border-[#B9A584]/70 hover:text-[#B9A584] sm:w-auto"
               >
                 Send inquiry
                 <span aria-hidden>→</span>
               </button>
+              <p className="mt-4 text-xs leading-relaxed text-white/35">
+                Form validation runs locally. Email delivery is not connected in this demo.
+              </p>
             </div>
           </form>
         )}

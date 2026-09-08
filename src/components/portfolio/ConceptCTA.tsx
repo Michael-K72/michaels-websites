@@ -22,8 +22,8 @@ export function ConceptCTA({
           Like this direction?
         </h2>
         <p className="mx-auto mt-6 max-w-xl text-sm leading-relaxed opacity-65 md:text-base">
-          {conceptName} is a demonstration of craft. Your brand would receive its own
-          identity, structure, and experience—designed uniquely for you.
+          {conceptName} shows one possible aesthetic. A site for your company would be
+          designed around your brand—not this fictional demo.
         </p>
         <Link
           href="/contact"
