@@ -18,5 +18,7 @@ export interface ConceptMeta {
   navTheme: NavTheme;
   accent: string;
   previewImage: string;
+  detailImage: string;
   description: string;
+  highlights: [string, string, string];
 }

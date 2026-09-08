@@ -1,11 +1,11 @@
 @import "tailwindcss";
 
 :root {
-  --mk-bg: #0c0c0c;
-  --mk-fg: #f4f1ec;
-  --mk-muted: rgba(244, 241, 236, 0.62);
-  --mk-line: rgba(244, 241, 236, 0.14);
-  --mk-accent: #d8c3a5;
+  --mk-bg: #0b0d10;
+  --mk-fg: #f2eee7;
+  --mk-muted: rgba(242, 238, 231, 0.62);
+  --mk-line: rgba(242, 238, 231, 0.14);
+  --mk-accent: #b9a584;
   --nav-bg: rgba(12, 12, 12, 0.72);
   --nav-fg: #f4f1ec;
   --nav-muted: rgba(244, 241, 236, 0.55);
